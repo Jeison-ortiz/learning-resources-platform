@@ -35,7 +35,11 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('api/resources', [ResourceController::class,'search']);
+
 Route::middleware('auth')->post('api/resources', [ResourceController::class,'store']);
+
+
 //Route::middleware('auth')->post('/api/resources', function(Request $request){
     //dd(Category::first());
 
