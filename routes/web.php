@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourceController;
 use Illuminate\Foundation\Application;
@@ -38,6 +39,8 @@ require __DIR__.'/auth.php';
 Route::get('api/resources', [ResourceController::class,'search']);
 
 Route::middleware('auth')->post('api/resources', [ResourceController::class,'store']);
+
+Route::middleware('auth')->get('api/categories', [CategoryController::class,'index']);
 
 
 //Route::middleware('auth')->post('/api/resources', function(Request $request){
