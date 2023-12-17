@@ -15,15 +15,8 @@ class VoteController extends Controller
         // buscar o crear el votante
         //toogle del voto
         //devolver el resource actualizado con su recuento de voto
+        $voter = Voter::getOrCreateVoter($request);
 
-        $voterId = $request->cookie('voter_code');
-        $voter = Voter::where('code', $voterId)->first();
-        if(!$voter){
-            $voter = Voter::create([
-                'code' => Str::random(30),
-            ]);
-            Cookie::queue('voter_code',$voter->code, 60 * 24 * 30);
-        }
         // toogle
         $resource->votes()->toggle($voter->id);
         // devuekve el  resource actualizado con su recuento de voto
