@@ -9,9 +9,11 @@ class Voter extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code'];
+    protected $fillable = [
+        'code',
+    ];
 
-    public function resource(){
-        return $this->belongsToMany(Resource::class);
+    public function resources(){
+        return $this->belongsToMany(Resource::class, 'votes');
     }
 }
