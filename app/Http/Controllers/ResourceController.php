@@ -14,7 +14,7 @@ class ResourceController extends Controller
         return Inertia::render('Resources', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
-            'resources' => Resource::with('category')->get(),
+            'resources' => Resource::with('category','votes')->get(),
             'categories' => Category::all(),
         ]);
     }
@@ -46,7 +46,7 @@ class ResourceController extends Controller
         ->when(!empty($request->category),function ($query) use ($request){
             return $query->where('category_id', $request->category);
         })
-        ->with('category')
+        ->with('category','votes')
         ->get();
     }
 
