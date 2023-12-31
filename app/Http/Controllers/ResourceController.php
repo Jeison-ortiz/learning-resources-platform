@@ -24,11 +24,12 @@ class ResourceController extends Controller
     public function store(Request $request){
 
         // Se hacen las validaciones del request
-       // $request->validate([
-       //     'title' => ['required', 'max:255'],
-       //     'category_id => ['required', 'exists:categories,id'],
-       //     'url'=> ['required','url'],
-       // ]);
+       $request->validate([
+            'title' => ['required', 'max:255'],
+            'description' =>  ['required', 'max:255'],
+           //'category_id' => ['required', 'exists:categories,id'],
+           'link'=> ['required'],
+       ]);
 
         Resource::create([
             'title'=>$request->title,
