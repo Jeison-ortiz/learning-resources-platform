@@ -21,9 +21,9 @@ const props = defineProps({
     },
 });
 
-let filteredCategory = ref(null);
-let search = ref("");
-let filteredResources = ref([]);
+    let filteredCategory = ref(null);
+    let search = ref("");
+    let filteredResources = ref([]);
 
 watch(search, (value) => {
     axios.get("/api/resources?search=" + value + "&category=" + filteredCategory.value).then((response) => {
@@ -34,14 +34,14 @@ watch(search, (value) => {
 
 watch(filteredCategory, (value) => {
     axios.get("/api/resources?category=" + value + "&search=" + search.value).then((response) => {
-        filteredResources.value = response.data;
+        filteredResources.value = response.data.slice().sort((a, b) => b.votes.length - a.votes.length);
 
     });
 })
 
 onMounted(() => {
     console.log("Recursos cargados!", props.resources);
-    filteredResources.value = props.resources;
+    filteredResources.value = props.resources.slice().sort((a, b) => b.votes.length - a.votes.length);
 })
 
 function vote(resourceId) {
@@ -52,7 +52,7 @@ function vote(resourceId) {
                 return response.data
             }
             return resource
-        });
+        }).slice().sort((a, b) => b.votes.length - a.votes.length);//resource.votes.length
 
     });
 }
